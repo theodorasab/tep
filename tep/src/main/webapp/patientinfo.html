@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/style.css" type="text/css"/>
+
+        <style>
+            /*            body {
+                            text-align: center;
+                font-family: 'Quicksand', sans-serif;
+                background-image: url(css/Medical.png);
+                background-size: cover;
+                        }*/
+            form {border: 3px solid #f1f1f1;}
+
+            input[type=text]{
+                text-align: center;
+                width: 40%;
+                padding: 20px 40px;
+                margin: 5px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
+            }
+            button {
+                background-color: #3399ff;
+                text-align: center;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                cursor: pointer;
+                width: 20%;
+            }
+
+            .addpatient{
+                text-align: center;
+                background-color: rgba(0,0,0,0.4);
+                margin: auto;
+                margin-top: 5%;
+                width: 800px;
+                height: auto;
+                border-radius: 15px 15px 15px 15px;
+            }
+
+            .AddInfo{
+                width:100%;
+                background-color: rgba(0,0,0,0.5);
+                color: #FFFFFF;
+                padding: 10px 0px 10px 0px;
+                text-align: center;
+                border-radius: 15px 15px 0px 0px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="addpatient">
+            <div class="AddInfo"><h2 id="AddInfo">Please insert your information..</h2></div>
+
+            <label for="FName" id="FNamelabel"><b>Full Name</b></label><br>
+            <input type="text" id="FName" name="FName"><br>
+            <label for="address" id="addresslabel"><b>Address</b></label><br>
+            <input type="text" id="address" name="address"><br><br>
+            <label for="AMKA"><b>AMKA</b></label><br>
+            <input type="text" id="AMKA" name="AMKA"><br>
+            <label for="insurance" id="insurancelabel"><b>Insurance</b></label><br>
+            <input type="text" id="insurance" name="insurance"><br><br>
+            <label for="chDisease" id="chDiseaselabel"><b>Chronic Diseases</b></label><br>
+            <input type="text" id="chDisease" name="chDisease"><br>
+            <p id="symptomslabel">Symptoms</p>
+            <select id="symptoms" name="Symptoms">
+                <option  value="1">Accident</option>
+                <option  value="2">Stitches</option>
+                <option  value="3">Other issue with wound</option>
+                <option  value="4">Children issues (age<16)</option>
+                <option  value="5">Blindness</option>
+                <option  value="6">Eye ache</option>
+                <option  value="7">Other eye issues</option>
+                <option value="8">Allergies</option>
+                <option  value="9">Infection</option>
+                <option   value="10">Other pathological issue</option>
+                <option  value="11">Bone pain</option>
+                <option  value="12">Other orthopedic issues</option>
+            </select><br>
+            <label for="moresymptoms" id="moresymptomslabel"><b>More about the symptoms</b></label><br>
+            <input type="text" id="moresymptoms" name="moresymptoms"><br>
+            <label for="doctor" id="doctorlabel"><b>Doctor</b></label><br>
+            <input type="text" id="doctor" name="doctor" readonly><br>
+            <label for="diagnose" id="diagnoselabel"><b>Diagnose</b></label><br>
+            <input type="text" id="diagnose" name="diagnose" ><br>
+            <label for="examination" id="examinationslabel"><b>Examinations</b></label><br>
+            <input type="text" id="examinations" name="examinations" ><br>
+            <label for="report" id="reportlabel"><b>Report</b></label><br>
+            <input type="text" id="report" name="report" ><br>
+            <label for="prescription" id="prescriptionlabel"><b>Prescription</b></label><br>
+            <input type="text" id="prescription" name="prescription" ><br>
+
+            <label for="therapy" id="therapylabel"><b>Therapy</b></label><br>
+            <input type="text" id="therapy" name="therapy" ><br>
+            <div id="message"></div>
+            <button type="submit" id="submitdiagnose">Submit Diagnose</button>
+            <button type="submit" id="submitexam">Submit Exam</button>
+            <button type="submit" id="submitpatient">Submit</button>
+        </div>
+
+    </body>
+</html>

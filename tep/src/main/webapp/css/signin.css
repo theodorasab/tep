@@ -1,0 +1,74 @@
+body {
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    background-image: url(../css/Medical.png);
+    background-size: cover;
+}
+
+.form {
+    border: 3px solid #f1f1f1;
+    padding: 10px;
+}
+
+input[type=text],
+input[type=password] {
+    text-align: center;
+    width: 100%;
+    padding: 20px 40px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 0.5px solid #ccc;
+    box-sizing: border-box;
+}
+.signIn{
+    width:100%;
+    background-color: rgba(0,0,0,0.5);
+    color: #FFFFFF;
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+    border-radius: 15px 15px 0px 0px;
+}
+
+button {
+    background-color: #3399ff;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(0,0,0,0.4);
+    margin: auto;
+    margin-top: 5%;
+    width: 35%;
+    height: auto;
+    border-radius: 15px 15px 15px 15px;
+}
+
+.main {
+    text-align: center;
+    width: 80%;
+    height: auto;
+    margin: auto;
+}
+
+span.psw {
+    text-align: center;
+    float: right;
+    padding-top: 16px;
+}
+
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+}

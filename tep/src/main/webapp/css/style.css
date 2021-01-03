@@ -1,0 +1,46 @@
+body {
+    margin:0;
+    padding:0;
+    background-image:  url(Medical.png);
+    background-size: cover;
+    /*background-position: center;*/
+    font-family: sans-serif;
+}
+
+
+.nav {
+    
+    text-align: right;
+    /* position: fixed; */
+    top: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+    background: #3399ff;
+    padding: 2%;
+}
+
+.nav__link {
+    display: inline;
+    padding: 12px 18px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 50;
+}
+
+.nav__link:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#app {
+    /*margin: 2em;*/
+    line-height: 7.5;
+    font-weight: 500;
+}
+
+a {
+    color: #009579;
+}
+#submitInfo {
+
+}
