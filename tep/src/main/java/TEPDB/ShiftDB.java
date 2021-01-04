@@ -26,6 +26,47 @@ import java.util.logging.Logger;
  */
 public class ShiftDB {
 
+    public static Shift doctorInShift(String AT, String date, String hours) throws ClassNotFoundException, SQLException {
+        Shift doctor = new Shift();
+        Statement stmt = null;
+        Connection con = null;
+
+        try {
+
+            con = TEPDB.getConnection();
+            stmt = con.createStatement();
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append("SELECT * FROM shift ")
+                    .append(" WHERE ")
+                    .append(" date = ").append("'").append(date).append("'AND")
+                    .append(" hours = ").append("'").append(hours).append("'AND")
+                    .append(" AT = ").append("'").append(AT).append("';");
+
+            stmt.execute(insQuery.toString());
+            ResultSet res = stmt.getResultSet();
+            while (res.next() == true) {
+                doctor.setNum(Integer.parseInt(res.getString("num")));
+                doctor.setFull_name(res.getString("full_name"));
+                doctor.setAT(AT);
+                doctor.setDate(date);
+                doctor.setHours(hours);
+                doctor.setProfession(res.getString("profession"));
+                System.out.println("#DB: The member " + doctor.getAT() + "  was successfully FOUND in the database.");
+
+            }
+
+        } catch (SQLException ex) {
+            // Log exception
+            Logger.getLogger(UserTepDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // close connection
+            con.close();
+        }
+        return doctor;
+    }
+
     public static List<Shift> getShiftByDate(String date) throws ClassNotFoundException, SQLException {
         List<Shift> shifts = new ArrayList<>();
         Statement stmt = null;
@@ -46,12 +87,14 @@ public class ShiftDB {
             ResultSet res = stmt.getResultSet();
             while (res.next() == true) {
                 Shift shift = new Shift();
+                shift.setNum(Integer.parseInt(res.getString("num")));
                 shift.setFull_name(res.getString("full_name"));
                 shift.setAT(res.getString("AT"));
                 shift.setDate(date);
                 shift.setHours(res.getString("hours"));
-                shift.setProfession(res.getString("proffession"));
+                shift.setProfession(res.getString("profession"));
                 shifts.add(shift);
+                System.out.println("#DB: The member " + shift.getAT() + "  was successfully FOUND in the database.");
 
             }
 
@@ -71,15 +114,14 @@ public class ShiftDB {
         con = TEPDB.getConnection();
         stmt = con.createStatement();
         try {
-//            Date date = new Date();
-//            Timestamp timestamp = new Timestamp(date.getTime());
 
             StringBuilder insQuery = new StringBuilder();
 
             insQuery.append("INSERT INTO ")
-                    .append(" shift (AT, full_name, proffession, date, "
+                    .append(" shift (num,AT, full_name, profession, date, "
                             + "hours) ")
                     .append(" VALUES (")
+                    .append("'").append(shift.getNum()).append("',")
                     .append("'").append(shift.getAT()).append("',")
                     .append("'").append(shift.getFull_name()).append("',")
                     .append("'").append(shift.getProfession()).append("',")
@@ -111,13 +153,13 @@ public class ShiftDB {
         try {
 
             String sql = "CREATE TABLE SHIFT "
-                    + "(AT VARCHAR(255), "
+                    + "(num INT, "
+                    + " AT VARCHAR(255),"
                     + " full_name VARCHAR(255), "
                     + " profession VARCHAR(255), "
-                    + " proffession VARCHAR(255), "
                     + " date VARCHAR(255), "
                     + " hours VARCHAR(255), "
-                    + " PRIMARY KEY ( AT ))";
+                    + " PRIMARY KEY ( num ))";
 
             stmt.executeUpdate(sql);
             System.out.println("Created table in given database...");

@@ -43,7 +43,9 @@ public class seeShift extends HttpServlet {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = formatter.format(date);
+
         shifts = ShiftDB.getShiftByDate(strDate);
+        System.out.println(strDate);
         String res = new Gson().toJson(shifts);
         System.out.println(res);
         response.getWriter().write(res);

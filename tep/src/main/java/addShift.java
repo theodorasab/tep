@@ -9,6 +9,7 @@ import TEPDB.ShiftDB;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -37,20 +38,37 @@ public class addShift extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         Shift shift = new Shift();
+        Random rand = new Random();
+        shift.setNum(rand.nextInt(1000));
+
         shift.setAT(request.getParameter("AT"));
         shift.setDate(request.getParameter("date"));
         shift.setFull_name(request.getParameter("full_name"));
-        shift.setHours(request.getParameter("hours"));
+        shift.setHours(request.getParameter("shift"));
         shift.setProfession(request.getParameter("profession"));
+        Shift currentShift = ShiftDB.doctorInShift(request.getParameter("AT"), request.getParameter("date"), request.getParameter("shift"));
+        String current = new Gson().toJson(currentShift);
 
-        ShiftDB.insertShift(shift);
-        response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
-        response.setStatus(HttpServletResponse.SC_OK);
-        String res = new Gson().toJson(shift);
-        System.out.println(res);
-        response.getWriter().write(res);
-        response.getWriter().flush();
-        response.getWriter().close();
+        System.out.println("FOUND: " + current);
+        if (currentShift.getAT() == "") {
+            ShiftDB.insertShift(shift);
+            response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
+            response.setStatus(HttpServletResponse.SC_OK);
+            String res = new Gson().toJson(shift);
+            System.out.println("INSERTED " + res);
+            response.getWriter().write(res);
+            response.getWriter().flush();
+            response.getWriter().close();
+        } else {
+            response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            String res = new Gson().toJson(shift);
+            System.out.println("DIDNT INSERT " + res);
+            response.getWriter().write(res);
+            response.getWriter().flush();
+            response.getWriter().close();
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

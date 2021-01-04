@@ -2,6 +2,10 @@ function signInClicked() {
     $('#content_page').load('signin.html');
 }
 
+window.addEventListener('load', (event) => {
+    $('#content_page').load('signin.html');
+
+});
 function logOutClicked() {
     $('#logout').css('display', 'none');
     $('#addPatient').css('display', 'none');
@@ -49,6 +53,9 @@ function seePatientsClicked() {
 
     });
 }
+function seeShiftClicked() {
+    getShift();
+}
 
 function searchPatientInfoClicked() {
     $('#content_page').load('searchAmka.html');
@@ -65,6 +72,12 @@ $('#logout').css('display', 'none');
 $(document).on('DOMNodeInserted', function (e) {
     if ($(e.target).hasClass('container')) {
         $('#signinbtn').on('click', getUsers);
+    }
+});
+
+$(document).on('DOMNodeInserted', function (e) {
+    if ($(e.target).hasClass('shift-container')) {
+        $('#submitshift').on('click', addShift);
     }
 });
 

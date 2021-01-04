@@ -12,6 +12,8 @@ public class Shift {
     private String profession;
     private String date;    // (could be encrypted in md5)
     private String hours;
+    private int num;
+
 
     public Shift() {
         this.profession = "";
@@ -19,17 +21,27 @@ public class Shift {
         this.full_name = "";
         this.hours = "";
         this.AT = "";
+        this.num = 0;
     }
 
     public Shift(String profession,
             String date,
-            String full_name, String AT, String hours) {
+            String full_name, String AT, String hours, int num) {
         this.profession = profession;
         this.date = date;
         this.full_name = full_name;
         this.hours = hours;
         this.AT = AT;
+        this.num = num;
 
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public String getAT() {
