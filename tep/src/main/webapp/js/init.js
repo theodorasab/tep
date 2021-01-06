@@ -19,6 +19,16 @@ function logOutClicked() {
 
 function addPatientInfoClicked() {
     $('#content_page').load('patientinfo.html', function () {
+        $('#illnessphlabel').css('display', 'none');
+        $('#namephlabel').css('display', 'none');
+        $('#typephlabel').css('display', 'none');
+        $('#dosephlabel').css('display', 'none');
+        $('#nameph').css('display', 'none');
+        $('#typeph').css('display', 'none');
+        $('#doseph').css('display', 'none');
+        $('#illnessph').css('display', 'none');
+
+
         $('#report').css('display', 'none');
         $('#reportlabel').css('display', 'none');
         $('#doctor').css('display', 'none');
@@ -59,6 +69,7 @@ function seeShiftClicked() {
 
 function searchPatientInfoClicked() {
     $('#content_page').load('searchAmka.html');
+    getPatientsForExams();
 }
 
 $('#searchPatient').css('display', 'none');

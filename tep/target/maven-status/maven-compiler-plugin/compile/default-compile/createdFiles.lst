@@ -1,3 +1,4 @@
+addDrug.class
 getPatient.class
 TEPDB\User.class
 TEPDB\Shift.class
@@ -5,6 +6,7 @@ addDiagnose.class
 getHistory.class
 setDoctor.class
 getTepUsers.class
+TEPDB\Drug.class
 TEPDB\UserTepDB.class
 addShift.class
 getExam.class

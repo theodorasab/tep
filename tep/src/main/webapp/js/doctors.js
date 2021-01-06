@@ -1,14 +1,54 @@
+
+function getPatientsForExams() {
+    ajaxRequest('GET', 'http://localhost:8080/tep/getAllPatientsForExams', undefined, function (o) {
+        var res = JSON.parse(o.responseText);
+
+        var list = "<table>" +
+                "<tr>" +
+                "<th> AMKA </th>" +
+                "<th> Exam Order </th>" +
+                "<th> Diagnose </th>" +
+
+                "</tr>";
+        for (i = 0; i < res.length; i++) {
+            list += "<tr>" +
+                    "<td>" + res[i].amka + "</td>" +
+                    "<td>" + res[i].exam_order + "</td>" +
+                    "<td>" + res[i].diagnose + "</td>" +
+                    "</tr>";
+        }
+        list += "</table>";
+
+        $("#showPatients").html(list);
+    });
+}
+
+
+
+
+
+
+
 function addDiagnose() {
 
     var data = new FormData();
     data.append('amka', $("#AMKA").val());
     data.append('diagnose', $("#diagnose").val());
     data.append('exam_order', $("#examinations").val());
-    data.append('prescription', $("#prescription").val());
+    data.append('prescription', $("#nameph").val());
     data.append('therapy', $("#therapy").val());
+
+    data.append('nameph', $("#nameph").val());
+    data.append('typeph', $("#typeph").val());
+    data.append('doseph', $("#doseph").val());
+    data.append('illnessph', $("#illnessph").val());
     ajaxRequest('POST', 'http://localhost:8080/tep/addDiagnose', data, function (o) {
         var res = JSON.parse(o.responseText);
         $('#content_page').html("<div style=" + "color:green; float:center;" + " >Succesfully submitted diagnose</div>")
+    });
+
+    ajaxRequest('POST', 'http://localhost:8080/tep/addDrug', data, function (o) {
+        var res = JSON.parse(o.responseText);
     });
 }
 
@@ -23,6 +63,14 @@ function searchPatient() {
             $("#diagnose").val(res.diagnose);
             $("#examinations").val(res.exam_order);
 
+            $('#illnessphlabel').css('display', 'none');
+            $('#namephlabel').css('display', 'none');
+            $('#typephlabel').css('display', 'none');
+            $('#dosephlabel').css('display', 'none');
+            $('#nameph').css('display', 'none');
+            $('#typeph').css('display', 'none');
+            $('#doseph').css('display', 'none');
+            $('#illnessph').css('display', 'none');
             $('#FName').css('display', 'none');
             $('#address').css('display', 'none');
             $('#moresymptoms').css('display', 'none');

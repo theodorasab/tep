@@ -3,6 +3,7 @@ C:\Users\theod\Desktop\tep\tep\src\main\java\getHistory.java
 C:\Users\theod\Desktop\tep\tep\src\main\java\getPatient.java
 C:\Users\theod\Desktop\tep\tep\src\main\java\TEPDB\ShiftDB.java
 C:\Users\theod\Desktop\tep\tep\src\main\java\getExam.java
+C:\Users\theod\Desktop\tep\tep\src\main\java\addDrug.java
 C:\Users\theod\Desktop\tep\tep\src\main\java\addDiagnose.java
 C:\Users\theod\Desktop\tep\tep\src\main\java\addReport.java
 C:\Users\theod\Desktop\tep\tep\src\main\java\getTepUsers.java
@@ -15,5 +16,6 @@ C:\Users\theod\Desktop\tep\tep\src\main\java\seeShift.java
 C:\Users\theod\Desktop\tep\tep\src\main\java\TEPDB\User.java
 C:\Users\theod\Desktop\tep\tep\src\main\java\addShift.java
 C:\Users\theod\Desktop\tep\tep\src\main\java\setDoctor.java
+C:\Users\theod\Desktop\tep\tep\src\main\java\TEPDB\Drug.java
 C:\Users\theod\Desktop\tep\tep\src\main\java\TEPDB\PatientDB.java
 C:\Users\theod\Desktop\tep\tep\src\main\java\TEPDB\UserTepDB.java

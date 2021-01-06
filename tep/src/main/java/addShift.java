@@ -40,7 +40,6 @@ public class addShift extends HttpServlet {
         Shift shift = new Shift();
         Random rand = new Random();
         shift.setNum(rand.nextInt(1000));
-
         shift.setAT(request.getParameter("AT"));
         shift.setDate(request.getParameter("date"));
         shift.setFull_name(request.getParameter("full_name"));

@@ -20,6 +20,8 @@ public class Patient {
     private String symptoms;
     private String doctor;
     private String report;
+    private String done;
+
 
     /**
      * Default Constructor
@@ -35,11 +37,13 @@ public class Patient {
         this.amka = 0;
         this.doctor = "";
         this.report = "";
+        this.done = "";
+
     }
 
     public Patient(String address,
             String diseases,
-            String full_name, String insurance, int amka, String selected_symptoms, String symptoms, String doctor, String report) {
+            String full_name, String insurance, int amka, String selected_symptoms, String symptoms, String done, String doctor, String report) {
         this.address = address;
         this.diseases = diseases;
         this.full_name = full_name;
@@ -49,7 +53,16 @@ public class Patient {
         this.amka = amka;
         this.doctor = doctor;
         this.report = report;
+        this.done = done;
 
+    }
+
+    public String getDone() {
+        return done;
+    }
+
+    public void setDone(String done) {
+        this.done = done;
     }
 
     public String getReport() {

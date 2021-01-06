@@ -22,8 +22,9 @@ public class UserTepDB {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         //create a table for users that login
-        ShiftDB.createShift();
-        //PatientDB.createPatientTable();
+//        ShiftDB.createShift();
+//        PatientDB.createDrugTable();
+        PatientDB.createPatientTable();
 //        PatientDB.createExaminationTable();
         //        createUserTable();
 //        insertUser();

@@ -21,7 +21,7 @@ function addPatient() {
             $("#insurance").val(res.insurance);
             $("#chDisease").val(res.diseases);
             $("#symptoms").val(selected);
-            $("#moresymptoms").val($("#moresymptoms").val());
+            $("#moresymptoms").val(res.symptoms);
 
             if (selected == 1)
                 $("#doctor").val("Surgeon");
@@ -75,7 +75,14 @@ function addPatient() {
             $('#examinationslabel').css('display', 'none');
             $('#report').css('display', 'none');
             $('#reportlabel').css('display', 'none');
-
+            $('#illnessphlabel').css('display', 'none');
+            $('#namephlabel').css('display', 'none');
+            $('#typephlabel').css('display', 'none');
+            $('#dosephlabel').css('display', 'none');
+            $('#nameph').css('display', 'none');
+            $('#typeph').css('display', 'none');
+            $('#doseph').css('display', 'none');
+            $('#illnessph').css('display', 'none');
 
         });
 
@@ -90,7 +97,7 @@ function addPatient() {
                 $("#insurance").val(res.insurance);
                 $("#chDisease").val(res.diseases);
                 $("#symptoms").val(selected);
-                $("#moresymptoms").val($("#moresymptoms").val());
+                $("#moresymptoms").val(res.symptoms);
 
                 if (selected == 1)
                     $("#doctor").val("Surgeon");
@@ -126,6 +133,27 @@ function addPatient() {
                 data1.append('doctor', $("#doctor").val());
                 data1.append('amka', $("#AMKA").val());
                 ajaxRequest('POST', 'http://localhost:8080/tep/setDoctor', data1, function (o) {});
+//                ajaxRequest('GET', 'http://localhost:8080/tep/getHistory', data1, function (o) {
+//                    var history = JSON.parse(o.responseText);
+//                    var shift = "<table>" +
+//                            "<tr>" +
+//                            "<th> Full Name </th>" +
+//                            "<th> Profession </th>" +
+//                            "<th> Date </th>" +
+//                            "<th> Shift</th>" +
+//                            "</tr>";
+//                    for (i = 0; i < res.length; i++) {
+//                        shift += "<tr>" +
+//                                "<td>" + res[i].full_name + "</td>" +
+//                                "<td>" + res[i].profession + "</td>" +
+//                                "<td>" + res[i].date + "</td>" +
+//                                "<td>" + res[i].hours + "</td>" +
+//                                "</tr>";
+//                    }
+//                    shift += "</table>";
+//
+//                    $("#display_history").html(shift);
+//                });
 
                 $('#doctor').css('display', 'inline');
                 $('#doctorlabel').css('display', 'inline');
@@ -144,7 +172,14 @@ function addPatient() {
                 $('#examinationslabel').css('display', 'none');
                 $('#report').css('display', 'none');
                 $('#reportlabel').css('display', 'none');
-
+                $('#illnessphlabel').css('display', 'none');
+                $('#namephlabel').css('display', 'none');
+                $('#typephlabel').css('display', 'none');
+                $('#dosephlabel').css('display', 'none');
+                $('#nameph').css('display', 'none');
+                $('#typeph').css('display', 'none');
+                $('#doseph').css('display', 'none');
+                $('#illnessph').css('display', 'none');
 
             });
 
@@ -158,9 +193,11 @@ function getPatient() {
 
     var data = new FormData();
     data.append('doctor', user);
-
+    console.log("logged in as " + user)
     ajaxRequest('GET', 'http://localhost:8080/tep/getPatient', data, function (ο) {
         var res = JSON.parse(ο.responseText);
+        console.log(res);
+
         $("#FName").val(res.full_name);
         $("#AMKA").val(res.amka);
         $("#insurance").val(res.insurance);

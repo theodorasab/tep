@@ -38,7 +38,7 @@ public class getExam extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException, SQLException {
 
         Examinations exam = PatientDB.getExam(Integer.parseInt(request.getParameter("amka")));
-        PatientDB.insertExaminations(exam);
+
         response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
         response.setStatus(200);
         String res = new Gson().toJson(exam);

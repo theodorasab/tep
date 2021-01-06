@@ -23,6 +23,36 @@ import java.util.logging.Logger;
  */
 public class PatientDB {
 
+    public static void setDone(Patient patient, String done) throws ClassNotFoundException, SQLException {
+
+        Statement stmt = null;
+        Connection con = null;
+
+        try {
+
+            con = TEPDB.getConnection();
+            stmt = con.createStatement();
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append("UPDATE patients SET done =").append("'").append(done).append("'")
+                    .append(" WHERE ")
+                    .append(" amka = ").append("'").append(patient.getAMKA()).append("';");
+            System.out.println("done" + done);
+            System.out.println(patient.getDoctor());
+            stmt.executeUpdate(insQuery.toString());
+            System.out.println("#DB: The done" + done + " was successfully added in the database.");
+
+        } catch (SQLException ex) {
+            // Log exception
+            Logger.getLogger(UserTepDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // close connection
+            con.close();
+        }
+        return;
+    }
+
     public static List<Examinations> getPatientsForExam() throws ClassNotFoundException, SQLException {
         List<Examinations> exams = new ArrayList();
 
@@ -164,8 +194,6 @@ public class PatientDB {
         con = TEPDB.getConnection();
         stmt = con.createStatement();
         try {
-            Date date = new Date();
-            Timestamp timestamp = new Timestamp(date.getTime());
 
             StringBuilder insQuery = new StringBuilder();
 
@@ -213,7 +241,8 @@ public class PatientDB {
 
             insQuery.append("SELECT * FROM patients")
                     .append(" WHERE ")
-                    .append(" doctor = ").append("'").append(doctor).append("';");
+                    .append(" done = ").append("'").append("no").append("' AND")
+                    .append(" doctor = ").append("'").append(doctor).append("' ;");
 
             stmt.execute(insQuery.toString());
 
@@ -229,6 +258,7 @@ public class PatientDB {
                 patient.setReport(res.getString("report"));
                 patient.setSelectedSymptoms(res.getString("symptoms"));
                 patient.setSymptoms(res.getString("symptoms"));
+                patient.setDone(res.getString("symptoms"));
 
             }
 
@@ -381,7 +411,7 @@ public class PatientDB {
             System.out.println("doctor added " + doctor);
             System.out.println(patient.getDoctor());
             stmt.executeUpdate(insQuery.toString());
-            System.out.println("#DB: The doctor was successfully updated in the database.");
+            System.out.println("#DB: The doctor" + doctor + " was successfully added in the database.");
 
         } catch (SQLException ex) {
             // Log exception
@@ -422,6 +452,7 @@ public class PatientDB {
                 patient.setSymptoms(res.getString("symptoms"));
                 patient.setDoctor("");
                 patient.setReport("");
+                patient.setDone("no");
 
             }
 
@@ -450,7 +481,8 @@ public class PatientDB {
             insQuery.append("UPDATE patients SET diseases =").append("'").append(patient.getDiseases()).append("',")
                     .append("selected_symptoms= ").append("'").append(patient.getSelectedSymptoms()).append("',")
                     .append("symptoms= ").append("'").append(patient.getSymptoms()).append("',")
-                    .append("doctor= ").append("'").append(patient.getDoctor()).append("';");
+                    .append("doctor= ").append("'").append(patient.getDoctor()).append("'")
+                    .append("WHERE amka= ").append("'").append(patient.getAMKA()).append("';");
 
             System.out.println("patient updated " + patient);
             System.out.println(patient.getSymptoms());
@@ -480,7 +512,7 @@ public class PatientDB {
 
             insQuery.append("INSERT INTO ")
                     .append(" patients (amka, full_name, address, diseases, "
-                            + "insurance,selected_symptoms,symptoms,doctor,report) ")
+                            + "insurance,selected_symptoms,symptoms,doctor,report,done) ")
                     .append(" VALUES (")
                     .append("'").append(patient.getAMKA()).append("',")
                     .append("'").append(patient.getFull_name()).append("',")
@@ -490,7 +522,8 @@ public class PatientDB {
                     .append("'").append(patient.getSelectedSymptoms()).append("',")
                     .append("'").append(patient.getSymptoms()).append("',")
                     .append("'").append(patient.getDoctor()).append("',")
-                    .append("'").append(patient.getReport()).append("');");
+                    .append("'").append(patient.getReport()).append("',")
+                    .append("'").append(patient.getDone()).append("');");
 
             PreparedStatement stmtIns = con.prepareStatement(insQuery.toString());
             stmtIns.executeUpdate();
@@ -526,6 +559,7 @@ public class PatientDB {
                     + " symptoms VARCHAR(255), "
                     + " doctor VARCHAR(255), "
                     + " report VARCHAR(255), "
+                    + " done VARCHAR(255), "
                     + " PRIMARY KEY ( amka ))";
 
             stmt.executeUpdate(sql);
@@ -569,10 +603,91 @@ public class PatientDB {
                     + " report VARCHAR(255), "
                     + " therapy VARCHAR(255), "
                     + " date VARCHAR(255), "
-                    + " PRIMARY KEY ( date ))";
+                    + " PRIMARY KEY ( amka ))";
 
             stmt.executeUpdate(sql);
             System.out.println("Created examinations table in given database...");
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null) {
+                    con.close();
+                }
+            } catch (SQLException se) {
+            }// do nothing
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+
+        System.out.println(
+                "Goodbye!");
+    }
+
+    public static void insertDrug(Drug drug) throws ClassNotFoundException, SQLException {
+        Statement stmt = null;
+        Connection con = null;
+        con = TEPDB.getConnection();
+        stmt = con.createStatement();
+        try {
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append("INSERT INTO ")
+                    .append(" drugs (num, amka, name, type, dose, "
+                            + "illness,date) ")
+                    .append(" VALUES (")
+                    .append("'").append(drug.getNum()).append("',")
+                    .append("'").append(drug.getAMKA()).append("',")
+                    .append("'").append(drug.getName()).append("',")
+                    .append("'").append(drug.getTyoe()).append("',")
+                    .append("'").append(drug.getDose()).append("',")
+                    .append("'").append(drug.getIllness()).append("',")
+                    .append("'").append(drug.getDate()).append("');");
+
+            PreparedStatement stmtIns = con.prepareStatement(insQuery.toString());
+            stmtIns.executeUpdate();
+
+            // Get information magically completed from database
+            System.out.println("#DB: The member " + drug.toString() + "  was successfully added in the database.");
+
+        } catch (SQLException ex) {
+            System.out.println("sql ex");
+            // Log exception
+            Logger.getLogger(TEPDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // close connection
+            con.close();
+        }
+
+    }
+
+    public static void createDrugTable() throws ClassNotFoundException, SQLException {
+        Statement stmt = null;
+        Connection con = null;
+        con = TEPDB.getConnection();
+        stmt = con.createStatement();
+        try {
+
+            String sql = "CREATE TABLE DRUGS "
+                    + "(num INTEGER not NULL, "
+                    + " amka INTEGER not NULL, "
+                    + " name VARCHAR(255), "
+                    + " type VARCHAR(255), "
+                    + " dose VARCHAR(255), "
+                    + " illness VARCHAR(255), "
+                    + " date VARCHAR(255), "
+                    + " PRIMARY KEY ( num ))";
+
+            stmt.executeUpdate(sql);
+            System.out.println("Created table in given database...");
         } catch (SQLException se) {
             //Handle errors for JDBC
             se.printStackTrace();

@@ -76,7 +76,8 @@ public class addPatient extends HttpServlet {
         patient.setSymptoms(request.getParameter("symptoms"));
         patient.setDoctor("");
         patient.setReport("");
-
+        patient.setDone("no");
+      
 
         try {
             if (PatientDB.getPatientWithAmka(amka).getAMKA() == 0) {

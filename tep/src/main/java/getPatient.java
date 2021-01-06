@@ -37,6 +37,7 @@ public class getPatient extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         Patient patient = PatientDB.getPatient(request.getParameter("doctor"));
+        System.out.println("got the patient with name " + patient.getFull_name());
         response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
         String res = new Gson().toJson(patient);

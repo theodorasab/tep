@@ -4,13 +4,16 @@
  * and open the template in the editor.
  */
 
+import TEPDB.Drug;
 import TEPDB.Examinations;
+import TEPDB.Patient;
 import TEPDB.PatientDB;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -42,13 +45,26 @@ public class addDiagnose extends HttpServlet {
         Examinations exam = new Examinations();
         int amka = Integer.parseInt(request.getParameter("amka"));
         exam.setAMKA(amka);
-        exam.setAMKA(amka);
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = formatter.format(date);
         exam.setDate(strDate);
         exam.setDiagnose(request.getParameter("diagnose"));
         exam.setExam_order(request.getParameter("exam_order"));
+        Drug drug = new Drug();
+        if (request.getParameter("doseph") != "") {
+        drug.setAMKA(amka);
+        drug.setDate(strDate);
+        drug.setDose(request.getParameter("doseph"));
+        drug.setIllness(request.getParameter("illnessph"));
+        drug.setName(request.getParameter("nameph"));
+        drug.setType(request.getParameter("typeph"));
+        Random rand = new Random();
+        drug.setNum(rand.nextInt(2000));
+            PatientDB.insertDrug(drug);
+            System.out.println(drug);
+
+        }
         if (request.getParameter("prescription") == "") {
             exam.setPrescription("");
         } else {
@@ -59,6 +75,7 @@ public class addDiagnose extends HttpServlet {
         if (request.getParameter("repost") == "") {
             exam.setReport("");
         } else {
+            flag = false;
             exam.setReport(request.getParameter("report"));
         }
         if (request.getParameter("therapy") == "") {
@@ -67,13 +84,19 @@ public class addDiagnose extends HttpServlet {
             flag = false;
             exam.setTherapy(request.getParameter("therapy"));
         }
+
         if (flag == true) {
+            Patient patient = PatientDB.getPatientWithAmka(amka);
+            PatientDB.setDone(patient, "no");
             PatientDB.insertExaminations(exam);
         } else {
+            Patient patient = PatientDB.getPatientWithAmka(amka);
+            PatientDB.setDone(patient, "yes");
             PatientDB.setTherapy(exam, request.getParameter("therapy"));
             System.out.println(exam.getTherapy());
 
         }
+
         response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
         response.setStatus(200);
         String res = new Gson().toJson(exam);
