@@ -26,6 +26,40 @@ import java.util.logging.Logger;
  */
 public class ShiftDB {
 
+    public static void updateShift(String AT, String Date, String hours, Shift shift) throws ClassNotFoundException, SQLException {
+
+        Statement stmt = null;
+        Connection con = null;
+
+        try {
+
+            con = TEPDB.getConnection();
+            stmt = con.createStatement();
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append("UPDATE shift SET AT =").append("'").append(shift.getAT()).append("',")
+                    .append(" full_name =").append("'").append(shift.getFull_name()).append("',")
+                    .append(" profession =").append("'").append(shift.getProfession()).append("',")
+                    .append(" date =").append("'").append(shift.getDate()).append("',")
+                    .append(" hours =").append("'").append(shift.getHours()).append("'")
+                    .append(" WHERE ")
+                    .append(" AT = ").append("'").append(AT).append("' AND")
+                    .append(" date = ").append("'").append(Date).append("' AND")
+                    .append(" hours = ").append("'").append(hours).append("';");
+            stmt.executeUpdate(insQuery.toString());
+            System.out.println("#DB: The shift" + shift.getFull_name() + " was successfully updated in the database.");
+
+        } catch (SQLException ex) {
+            // Log exception
+            Logger.getLogger(UserTepDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // close connection
+            con.close();
+        }
+        return;
+    }
+
     public static Shift doctorInShift(String AT, String date, String hours) throws ClassNotFoundException, SQLException {
         Shift doctor = new Shift();
         Statement stmt = null;

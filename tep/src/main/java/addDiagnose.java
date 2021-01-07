@@ -62,8 +62,6 @@ public class addDiagnose extends HttpServlet {
         Random rand = new Random();
         drug.setNum(rand.nextInt(2000));
             PatientDB.insertDrug(drug);
-            System.out.println(drug);
-
         }
         if (request.getParameter("prescription") == "") {
             exam.setPrescription("");
@@ -72,7 +70,7 @@ public class addDiagnose extends HttpServlet {
             PatientDB.setPrescription(exam, request.getParameter("prescription"));
 
         }
-        if (request.getParameter("repost") == "") {
+        if (request.getParameter("report") == "") {
             exam.setReport("");
         } else {
             flag = false;

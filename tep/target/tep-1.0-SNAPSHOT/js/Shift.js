@@ -1,9 +1,3 @@
-//
-//function load() {
-//    $("#addWorker").click(function () {
-//        createShift();
-//    });
-//}
 
 function addShift() {
 
@@ -27,6 +21,10 @@ function getShift() {
     ajaxRequest('GET', 'http://localhost:8080/tep/seeShift', undefined, function (o) {
         var res = JSON.parse(o.responseText);
         console.log(res);
+        if (user == "employee") {
+            $('#replace').load('Shift.html');
+        }
+
         var shift = "<table>" +
                 "<tr>" +
                 "<th> Full Name </th>" +
@@ -50,39 +48,23 @@ function getShift() {
 }
 
 
-//function createShift() {
-//    var tbl = "";
-//
-//    tbl = "<table>" +
-//            "<tr>" +
-//            "<th> Full Name </th>" +
-//            "<th> AT </th>" +
-//            "<th> Profession </th>" +
-//            "<th> Date </th>" +
-//            "<th> Shift Hours</th>" +
-//            "</tr>";
-//    for (i = 0; i < 14; i++) {
-//        tbl += "<tr>" +
-//                "<td>" + i + "</td>" +
-//                "<td>" +
-//                "<input type='text' id='FullName' name='FName'>" +
-//                "</td>" +
-//                "<td>" +
-//                "<input type='text' id='AT' name='AT'>" +
-//                "</td>" +
-//                "<td>" +
-//                "<input type='text' id='Profession' name='Profession'>" +
-//                "</td>" +
-//                "<td>" +
-//                "<input type='text' id='Date' name='Date'>" +
-//                "</td>" +
-//                "<td>" +
-//                "<input type='text' id='ShiftTime' name='ShiftTime'><br>" +
-//                "</td>" +
-//                "</tr>";
-//    }
-//    tbl += "</table>";
-//
-//    $("#").append(tbl);
-//}
+function replaceShift() {
+    var data = new FormData();
+    data.append('rpAT', $("#rATshift").val());
+    data.append('withAT', $("#rATshift1").val());
+    data.append('withName', $("#rFN1").val());
+    data.append('withProfession', $("#Profession2").val());
+    data.append('withDate', $("#rDateshift1").val());
+    data.append('withShift', $("#rShiftTime1").val());
+
+    ajaxRequest('POST', 'http://localhost:8080/tep/replaceShift', data, function (o) {
+        var res = JSON.parse(o.responseText);
+        console.log(res);
+        $("#rdoctormessage").html("Succesfully updated the doctor in shift.")
+    }, function (o) {
+        if (o.readyState == 4) {
+            $("r#doctormessage").html("This doctor already exists in this shift.")
+        }
+    });
+}
 

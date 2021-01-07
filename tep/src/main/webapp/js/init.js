@@ -7,6 +7,7 @@ window.addEventListener('load', (event) => {
 
 });
 function logOutClicked() {
+    $('#replace').empty();
     $('#logout').css('display', 'none');
     $('#addPatient').css('display', 'none');
     $('#searchPatient').css('display', 'none');
@@ -47,6 +48,8 @@ function addPatientInfoClicked() {
 }
 
 function addShiftClicked() {
+    $('#replace').empty();
+
     $('#content_page').load('addShift.html');
 }
 
@@ -105,5 +108,11 @@ $(document).on('DOMNodeInserted', function (e) {
 $(document).on('DOMNodeInserted', function (e) {
     if ($(e.target).hasClass('searchamkadiv')) {
         $('#searchbtn').on('click', searchPatient);
+    }
+});
+
+$(document).on('DOMNodeInserted', function (e) {
+    if ($(e.target).hasClass('replaceshift-container')) {
+        $('#submitreplace').on('click', replaceShift);
     }
 });
