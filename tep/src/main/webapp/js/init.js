@@ -19,6 +19,9 @@ function logOutClicked() {
     $('#content_page').load('signin.html');
 }
 
+function seeInfoClicked() {
+    $('#content_page').load('searchAmka.html');
+}
 function addPatientInfoClicked() {
     $('#content_page').load('patientinfo.html', function () {
         $('#illnessphlabel').css('display', 'none');
@@ -29,8 +32,6 @@ function addPatientInfoClicked() {
         $('#typeph').css('display', 'none');
         $('#doseph').css('display', 'none');
         $('#illnessph').css('display', 'none');
-
-
         $('#report').css('display', 'none');
         $('#reportlabel').css('display', 'none');
         $('#doctor').css('display', 'none');
@@ -45,6 +46,7 @@ function addPatientInfoClicked() {
         $('#examinationslabel').css('display', 'none');
         $('#submitdiagnose').css('display', 'none');
         $('#submitexam').css('display', 'none');
+        $('#update').css('display', 'none');
     });
 }
 
@@ -70,6 +72,7 @@ function seePatientsClicked() {
         $('#submitdiagnose').css('display', 'inline');
         $('#submitexam').css('display', 'none');
         $('#submitpatient').css('display', 'none');
+        $('#update').css('display', 'none');
 
     });
 }
@@ -82,6 +85,7 @@ function searchPatientInfoClicked() {
     getPatientsForExams();
 }
 
+$('#seeInfo').css('display', 'none');
 $('#searchPatient').css('display', 'none');
 $('#seePatients').css('display', 'none');
 $('#addPatient').css('display', 'none');
@@ -108,6 +112,7 @@ $(document).on('DOMNodeInserted', function (e) {
         $('#submitpatient').on('click', addPatient);
         $('#submitdiagnose').on('click', addDiagnose);
         $('#submitexam').on('click', addReport);
+        $('#update').on('click', updateInfo);
 
     }
 });

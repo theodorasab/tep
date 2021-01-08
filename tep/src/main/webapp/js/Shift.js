@@ -25,16 +25,22 @@ function getShift() {
             $('#replace').load('Shift.html');
         }
 
-        var shift = "<table>" +
-                "<tr>" +
-                "<th> Full Name </th>" +
+        var shift = "<table>" + "<tr>"
+        if (user == "employee") {
+            shift += "<th> AT </th>"
+        }
+        shift += "<th> Full Name </th>" +
                 "<th> Profession </th>" +
                 "<th> Date </th>" +
                 "<th> Shift</th>" +
                 "</tr>";
         for (i = 0; i < res.length; i++) {
-            shift += "<tr>" +
-                    "<td>" + res[i].full_name + "</td>" +
+            shift += "<tr>"
+            if (user == "employee") {
+                shift += "<td>" + res[i].amka + "</td>"
+
+            }
+            shift += "<td>" + res[i].full_name + "</td>" +
                     "<td>" + res[i].profession + "</td>" +
                     "<td>" + res[i].date + "</td>" +
                     "<td>" + res[i].hours + "</td>" +

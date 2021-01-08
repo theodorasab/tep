@@ -23,6 +23,36 @@ import java.util.logging.Logger;
  */
 public class PatientDB {
 
+    public static void updatePatientInfo(Patient patient, int amka) throws ClassNotFoundException, SQLException {
+
+        Statement stmt = null;
+        Connection con = null;
+
+        try {
+
+            con = TEPDB.getConnection();
+            stmt = con.createStatement();
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append("UPDATE patients SET full_name =").append("'").append(patient.getFull_name()).append("',")
+                    .append("address=").append("'").append(patient.getAddress()).append("',")
+                    .append("insurance=").append("'").append(patient.getInsurance()).append("',")
+                    .append("diseases=").append("'").append(patient.getDiseases()).append("'")
+                    .append(" WHERE ")
+                    .append(" amka = ").append("'").append(amka).append("';");
+            stmt.executeUpdate(insQuery.toString());
+
+        } catch (SQLException ex) {
+            // Log exception
+            Logger.getLogger(UserTepDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // close connection
+            con.close();
+        }
+        return;
+    }
+
     public static void setDone(Patient patient, String done) throws ClassNotFoundException, SQLException {
 
         Statement stmt = null;
@@ -83,7 +113,7 @@ public class PatientDB {
                 exam.setPrescription(res.getString("prescription"));
                 exam.setReport(res.getString("report"));
                 exam.setTherapy(res.getString("therapy"));
-                exam.setTherapy(res.getString("date"));
+                exam.setDate(res.getString("date"));
                 exams.add(exam);
 
             }
@@ -173,7 +203,7 @@ public class PatientDB {
                 exam.setPrescription(res.getString("prescription"));
                 exam.setReport(res.getString("report"));
                 exam.setTherapy(res.getString("therapy"));
-                exam.setTherapy(res.getString("date"));
+                exam.setDate(res.getString("date"));
 
             }
 
@@ -481,9 +511,9 @@ public class PatientDB {
                 patient.setInsurance(res.getString("insurance"));
                 patient.setSelectedSymptoms(res.getString("selected_symptoms"));
                 patient.setSymptoms(res.getString("symptoms"));
-                patient.setDoctor("");
+                patient.setDoctor(res.getString("doctor"));
                 patient.setReport("");
-                patient.setDone("no");
+                patient.setDone(res.getString("done"));
 
             }
 

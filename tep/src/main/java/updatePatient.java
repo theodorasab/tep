@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 
-import TEPDB.Shift;
-import TEPDB.ShiftDB;
+import TEPDB.Patient;
+import TEPDB.PatientDB;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,8 +22,8 @@ import javax.ws.rs.core.HttpHeaders;
  *
  * @author theodora
  */
-@WebServlet(urlPatterns = {"/replaceShift"})
-public class replaceShift extends HttpServlet {
+@WebServlet(urlPatterns = {"/updatePatient"})
+public class updatePatient extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,22 +36,19 @@ public class replaceShift extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
-        response.setContentType("text/html;charset=UTF-8");
-        Shift shiftToBeRep = new Shift();
-        shiftToBeRep.setFull_name(request.getParameter("withName"));
-        shiftToBeRep.setProfession(request.getParameter("withProfession"));
-        shiftToBeRep.setHours(request.getParameter("withShift"));
-        shiftToBeRep.setDate(request.getParameter("withDate"));
-        shiftToBeRep.setAT(request.getParameter("withAT"));
-        ShiftDB.updateShift(request.getParameter("rpAT"), request.getParameter("rpDate"), request.getParameter("rpShift"), shiftToBeRep);
-        shiftToBeRep = ShiftDB.doctorInShift(request.getParameter("withAT"), request.getParameter("withDate"), request.getParameter("withShift"));
-
+        Patient patient = new Patient();
+        patient.setAddress(request.getParameter("address"));
+        patient.setDiseases(request.getParameter("diseases"));
+        patient.setFull_name(request.getParameter("full_name"));
+        patient.setInsurance(request.getParameter("insurance"));
+        PatientDB.updatePatientInfo(patient, Integer.parseInt(request.getParameter("amka")));
         response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
-        response.setStatus(HttpServletResponse.SC_OK);
-        String res = new Gson().toJson(shiftToBeRep);
+        response.setStatus(200);
+        String res = new Gson().toJson(patient);
         response.getWriter().write(res);
         response.getWriter().flush();
         response.getWriter().close();
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,9 +66,9 @@ public class replaceShift extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(replaceShift.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(updatePatient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(replaceShift.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(updatePatient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -89,9 +86,9 @@ public class replaceShift extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(replaceShift.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(updatePatient.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(replaceShift.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(updatePatient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
