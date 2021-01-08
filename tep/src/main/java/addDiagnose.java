@@ -44,12 +44,13 @@ public class addDiagnose extends HttpServlet {
         boolean flag = true;
         Examinations exam = new Examinations();
         int amka = Integer.parseInt(request.getParameter("amka"));
+        Random rand = new Random();
+        exam.setNum(rand.nextInt(3000));
         exam.setAMKA(amka);
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = formatter.format(date);
         exam.setDate(strDate);
-        exam.setDiagnose(request.getParameter("diagnose"));
         exam.setExam_order(request.getParameter("exam_order"));
         Drug drug = new Drug();
         if (request.getParameter("doseph") != "") {
@@ -59,41 +60,58 @@ public class addDiagnose extends HttpServlet {
         drug.setIllness(request.getParameter("illnessph"));
         drug.setName(request.getParameter("nameph"));
         drug.setType(request.getParameter("typeph"));
-        Random rand = new Random();
-        drug.setNum(rand.nextInt(2000));
+            Random rand1 = new Random();
+            drug.setNum(rand1.nextInt(2000));
             PatientDB.insertDrug(drug);
+        }
+        if (request.getParameter("diagnose") == "") {
+            exam.setDiagnose("");
+        } else {
+            exam.setDiagnose(request.getParameter("diagnose"));
+            PatientDB.setDiagnose(exam, request.getParameter("diagnose"));
+
         }
         if (request.getParameter("prescription") == "") {
             exam.setPrescription("");
         } else {
-            exam.setPrescription(request.getParameter("prescription"));
-            PatientDB.setPrescription(exam, request.getParameter("prescription"));
 
+                exam.setPrescription(request.getParameter("prescription"));
+            PatientDB.setPrescription(exam, request.getParameter("prescription"));
         }
         if (request.getParameter("report") == "") {
             exam.setReport("");
         } else {
-            flag = false;
             exam.setReport(request.getParameter("report"));
         }
         if (request.getParameter("therapy") == "") {
             exam.setTherapy("");
         } else {
-            flag = false;
             exam.setTherapy(request.getParameter("therapy"));
+                PatientDB.setTherapy(exam, request.getParameter("therapy"));
         }
 
-        if (flag == true) {
-            Patient patient = PatientDB.getPatientWithAmka(amka);
+        Patient patient = PatientDB.getPatientWithAmka(amka);
+        if (request.getParameter("diagnose") == "" && request.getParameter("exam_order") != "") { // paei gia epaneksetash
             PatientDB.setDone(patient, "no");
             PatientDB.insertExaminations(exam);
-        } else {
-            Patient patient = PatientDB.getPatientWithAmka(amka);
+        } else if (request.getParameter("diagnose") != "" && request.getParameter("exam_order") != "") { // egine h epaneksetash
             PatientDB.setDone(patient, "yes");
-            PatientDB.setTherapy(exam, request.getParameter("therapy"));
-            System.out.println(exam.getTherapy());
-
+            exam.setDiagnose(request.getParameter("diagnose"));
+            PatientDB.setDiagnose(exam, request.getParameter("diagnose"));
+        } else if (request.getParameter("diagnose") != "" && request.getParameter("exam_order") == "") { //diagnwsh kai teleiwse
+            PatientDB.setDone(patient, "yes");
+            PatientDB.insertExaminations(exam);
         }
+
+
+//        if (flag == true) {
+//            Patient patient = PatientDB.getPatientWithAmka(amka);
+//            PatientDB.setDone(patient, "no");
+//            PatientDB.insertExaminations(exam);
+//        } else {
+//            Patient patient = PatientDB.getPatientWithAmka(amka);
+//            PatientDB.setDone(patient, "yes");
+//        }
 
         response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
         response.setStatus(200);

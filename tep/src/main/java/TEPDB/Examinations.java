@@ -11,6 +11,8 @@ package TEPDB;
  */
 public class Examinations {
 
+    private int num;    // (unique)
+
     private int amka;    // (unique)
     private String diagnose;
     private String exam_order;
@@ -31,12 +33,13 @@ public class Examinations {
         this.therapy = "";
         this.amka = 0;
         this.date = "";
+        this.num = 0;
 
     }
 
     public Examinations(String diagnose,
             String exam_order,
-            String prescription, String report, int amka, String therapy, String date) {
+            String prescription, String report, int amka, String therapy, String date, int num) {
         this.diagnose = diagnose;
         this.exam_order = exam_order;
         this.prescription = prescription;
@@ -44,6 +47,16 @@ public class Examinations {
         this.therapy = therapy;
         this.amka = amka;
         this.date = date;
+        this.num = num;
+
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public String getReport() {

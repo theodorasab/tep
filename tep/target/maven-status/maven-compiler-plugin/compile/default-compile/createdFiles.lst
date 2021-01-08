@@ -1,6 +1,8 @@
-addDrug.class
 getPatient.class
+getVisits.class
+Examiantions.class
 TEPDB\User.class
+getCOVID.class
 TEPDB\Shift.class
 addDiagnose.class
 getHistory.class
@@ -16,6 +18,7 @@ TEPDB\TEPDB.class
 addPatient.class
 getAllPatientsForExams.class
 TEPDB\Examinations.class
+replaceShift.class
 addReport.class
 TEPDB\Patient.class
 seeShift.class

@@ -1,3 +1,4 @@
+let question;
 function signInClicked() {
     $('#content_page').load('signin.html');
 }
@@ -52,6 +53,12 @@ function addShiftClicked() {
 
     $('#content_page').load('addShift.html');
 }
+
+function sqlClicked() {
+    $('#replace').empty();
+    $('#content_page').load('questions.html');
+}
+
 
 function seePatientsClicked() {
     $('#content_page').load('patientinfo.html', function () {
@@ -114,5 +121,26 @@ $(document).on('DOMNodeInserted', function (e) {
 $(document).on('DOMNodeInserted', function (e) {
     if ($(e.target).hasClass('replaceshift-container')) {
         $('#submitreplace').on('click', replaceShift);
+    }
+});
+
+function visits() {
+    question = "visits";
+    document.getElementById('question').value = "SELECT p.full_name , p.amka, p.doctor, e.diagnose , e.prescription, e.therapy FROM patients p INNER JOIN examinations e ON p.amka=e.amka WHERE date='07/01/2021';";
+
+}
+function covid() {
+    question = "covid";
+    document.getElementById('question').value = "SELECT p.full_name,p.amka, p.diseases, e.diagnose,p.address, p.insurance FROM patients p INNER JOIN examinations e ON p.amka=e.amka WHERE e.diagnose='COVID-19';";
+
+}
+
+$(document).on('DOMNodeInserted', function (e) {
+    if ($(e.target).hasClass('questions-container')) {
+        $('#viewvisits').on('click', visits);
+        $('#viewcovid').on('click', covid);
+//        $('#viewstats').on('click', visits);
+//        $('#viewpersonshift').on('click', visits);
+        $('#submitquestion').on('click', getQuestion);
     }
 });

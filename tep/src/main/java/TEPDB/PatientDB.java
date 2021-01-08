@@ -198,9 +198,10 @@ public class PatientDB {
             StringBuilder insQuery = new StringBuilder();
 
             insQuery.append("INSERT INTO ")
-                    .append(" examinations (amka, diagnose, exam_order, prescription, "
+                    .append(" examinations (num,amka, diagnose, exam_order, prescription, "
                             + "report,therapy,date) ")
                     .append(" VALUES (")
+                    .append("'").append(exam.getNum()).append("',")
                     .append("'").append(exam.getAMKA()).append("',")
                     .append("'").append(exam.getDiagnose()).append("',")
                     .append("'").append(exam.getExam_order()).append("',")
@@ -271,6 +272,36 @@ public class PatientDB {
         }
 
         return patient;
+    }
+
+    public static void setDiagnose(Examinations exam, String diagnose) throws ClassNotFoundException, SQLException {
+
+        Statement stmt = null;
+        Connection con = null;
+
+        try {
+
+            con = TEPDB.getConnection();
+            stmt = con.createStatement();
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append("UPDATE examinations SET diagnose =").append("'").append(diagnose).append("'")
+                    .append(" WHERE ")
+                    .append(" amka = ").append("'").append(exam.getAMKA()).append("';");
+            System.out.println("report added " + diagnose);
+            System.out.println(exam.getReport());
+            stmt.executeUpdate(insQuery.toString());
+            System.out.println("#DB: The report was successfully updated in the database.");
+
+        } catch (SQLException ex) {
+            // Log exception
+            Logger.getLogger(UserTepDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // close connection
+            con.close();
+        }
+        return;
     }
 
     public static void setReport(Examinations exam, String report) throws ClassNotFoundException, SQLException {
@@ -596,14 +627,15 @@ public class PatientDB {
         try {
 
             String sql = "CREATE TABLE EXAMINATIONS "
-                    + "(amka INTEGER not NULL, "
+                    + "(num INTEGER not NULL,"
+                    + "amka INTEGER not NULL, "
                     + " diagnose VARCHAR(255), "
                     + " exam_order VARCHAR(255), "
                     + " prescription VARCHAR(255), "
                     + " report VARCHAR(255), "
                     + " therapy VARCHAR(255), "
                     + " date VARCHAR(255), "
-                    + " PRIMARY KEY ( amka ))";
+                    + " PRIMARY KEY ( num ))";
 
             stmt.executeUpdate(sql);
             System.out.println("Created examinations table in given database...");
