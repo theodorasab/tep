@@ -134,13 +134,39 @@ function covid() {
     document.getElementById('question').value = "SELECT p.full_name,p.amka, p.diseases, e.diagnose,p.address, p.insurance FROM patients p INNER JOIN examinations e ON p.amka=e.amka WHERE e.diagnose='COVID-19';";
 
 }
+function shift() {
+    question = "shift";
+    document.getElementById('question').value = "SELECT AT,full_name,profession,date,hours FROM shift WHERE date BETWEEN '01/01/2021' AND '05/01/2021' ORDER BY date ASC;";
+
+}
+
+function statsbymonth() {
+    question = "statsbymonth";
+    document.getElementById('question').value = "select (select count(num) from shift  WHERE date BETWEEN '01/01/2021' AND '31/01/2021') as shiftNum," +
+            "(select count(num) from examinations  WHERE date BETWEEN '01/01/2021' AND '31/01/2021') as examNum," +
+            "(select count(diagnose) from examinations  WHERE date BETWEEN '01/01/2021' AND '31/01/2021') as diagnoseNum," +
+            "(select count(exam_order) from examinations  WHERE exam_order IS NOT NULL AND date BETWEEN '01/01/2021' AND '31/01/2021') as exam_orderNum," +
+            "(select count(num) from drugs  WHERE date BETWEEN '01/01/2021' AND '31/01/2021') as drugsNum";
+
+}
+
+function statsbyday() {
+    question = "statsbyday";
+    document.getElementById('question').value = "select (select count(num) from shift  WHERE date='01/01/2021') as shiftNum," +
+            "(select count(num) from examinations  WHERE  date='01/01/2021') as examNum," +
+            "(select count(diagnose) from examinations  WHERE  date='01/01/2021') as diagnoseNum," +
+            "(select count(exam_order) from examinations  WHERE exam_order IS NOT NULL AND  date='01/01/2021') as exam_orderNum," +
+            "(select count(num) from drugs  WHERE date='01/01/2021') as drugsNum;";
+
+}
 
 $(document).on('DOMNodeInserted', function (e) {
     if ($(e.target).hasClass('questions-container')) {
         $('#viewvisits').on('click', visits);
         $('#viewcovid').on('click', covid);
-//        $('#viewstats').on('click', visits);
-//        $('#viewpersonshift').on('click', visits);
+        $('#viewstatsbyday').on('click', statsbyday);
+        $('#viewpersonshift').on('click', shift);
+        $('#viewstatsbymonth').on('click', statsbymonth);
         $('#submitquestion').on('click', getQuestion);
     }
 });

@@ -54,7 +54,6 @@ public class addShift extends HttpServlet {
             response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
             String res = new Gson().toJson(shift);
-            System.out.println("INSERTED " + res);
             response.getWriter().write(res);
             response.getWriter().flush();
             response.getWriter().close();
@@ -62,7 +61,6 @@ public class addShift extends HttpServlet {
             response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             String res = new Gson().toJson(shift);
-            System.out.println("DIDNT INSERT " + res);
             response.getWriter().write(res);
             response.getWriter().flush();
             response.getWriter().close();

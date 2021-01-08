@@ -30,16 +30,22 @@ input[type=password] {
     border-radius: 15px 15px 0px 0px;
 }
 
-/*button {
+button {
     background-color: #3399ff;
-    background-image: url(../css/plusSign.png);
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 15%;
-}*/
+    width: 50%;
+}
+
+.main-shift {
+    text-align: center;
+    width: 80%;
+    height: auto;
+    margin: auto;
+}
 
 button:hover {
     opacity: 0.8;

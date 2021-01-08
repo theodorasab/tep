@@ -37,8 +37,7 @@ public class getTepUsers extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
-//        User user = new User();
-//        user.setUserName(request.getParameter("username"));
+
         List<User> users = UserTepDB.getUsers();
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getUserName().equals(request.getParameter("username"))) {

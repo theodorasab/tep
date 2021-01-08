@@ -241,7 +241,7 @@ function getUsers() {
             $('#signin').css('display', 'none');
             $('#addShift').css('display', 'none');
             $('#seeShift').css('display', 'inline');
-        } else if (res == "surgeon" || res == "pediatrician" || res == "cardiologist" || res == "ophthalmologist" || res == "pathologist") {
+        } else if (res == "surgeon" || res == "pediatrician" || res == "cardiologist" || res == "ophthalmologist" || res == "pathologist" || res == "orthopedician") {
             $('#addPatient').css('display', 'none');
             $('#seePatients').css('display', 'inline');
             $('#logout').css('display', 'inline');
@@ -259,7 +259,7 @@ function getUsers() {
         } else if (res == "employee") {
             $('#searchPatient').css('display', 'none');
             $('#seePatients').css('display', 'none');
-            $('#addPatient').css('display', 'none');
+            $('#addPatient').css('display', 'inline');
             $('#logout').css('display', 'inline');
             $('#signin').css('display', 'none');
             $('#addShift').css('display', 'inline');

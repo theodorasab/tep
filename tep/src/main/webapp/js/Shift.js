@@ -51,6 +51,8 @@ function getShift() {
 function replaceShift() {
     var data = new FormData();
     data.append('rpAT', $("#rATshift").val());
+    data.append('rpDate', $("#replacedate").val());
+    data.append('rpShift', $("#rShiftTime").val());
     data.append('withAT', $("#rATshift1").val());
     data.append('withName', $("#rFN1").val());
     data.append('withProfession', $("#Profession2").val());

@@ -4,11 +4,16 @@
  * and open the template in the editor.
  */
 
-import TEPDB.Examinations;
-import TEPDB.PatientDB;
+import TEPDB.Shift;
+import TEPDB.TEPDB;
+import TEPDB.UserTepDB;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,8 +28,8 @@ import javax.ws.rs.core.HttpHeaders;
  *
  * @author theodora
  */
-@WebServlet(urlPatterns = {"/getAllPatientsForExams"})
-public class getAllPatientsForExams extends HttpServlet {
+@WebServlet(urlPatterns = {"/getquestionShift"})
+public class getquestionShift extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,14 +42,49 @@ public class getAllPatientsForExams extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
-        List<Examinations> exams = PatientDB.getPatientsForExam();
-        response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
-        response.setStatus(HttpServletResponse.SC_OK);
-        String res = new Gson().toJson(exams);
-        response.getWriter().write(res);
-        response.getWriter().flush();
-        response.getWriter().close();
+        List<Shift> shifts = new ArrayList();
+        Statement stmt = null;
+        Connection con = null;
+        try {
+
+            con = TEPDB.getConnection();
+            stmt = con.createStatement();
+
+            StringBuilder insQuery = new StringBuilder();
+
+            insQuery.append(request.getParameter("shift"));
+
+            stmt.execute(insQuery.toString());
+
+            ResultSet res = stmt.getResultSet();
+
+            while (res.next()) {
+                Shift shift = new Shift();
+                shift.setAT(res.getString("AT"));
+                shift.setFull_name(res.getString("full_name"));
+                shift.setHours(res.getString("hours"));
+                shift.setDate(res.getString("date"));
+                shift.setProfession(res.getString("profession"));
+                shifts.add(shift);
+            }
+
+            response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
+            response.setStatus(200);
+            String res1 = new Gson().toJson(shifts);
+            response.getWriter().write(res1);
+            response.getWriter().flush();
+            response.getWriter().close();
+
+        } catch (SQLException ex) {
+            // Log exception
+            Logger.getLogger(UserTepDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // close connection
+            con.close();
+        }
+
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -60,9 +100,9 @@ public class getAllPatientsForExams extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(getAllPatientsForExams.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getquestionShift.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(getAllPatientsForExams.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getquestionShift.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -80,9 +120,9 @@ public class getAllPatientsForExams extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(getAllPatientsForExams.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getquestionShift.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(getAllPatientsForExams.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getquestionShift.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -43,8 +43,8 @@ public class replaceShift extends HttpServlet {
         shiftToBeRep.setHours(request.getParameter("withShift"));
         shiftToBeRep.setDate(request.getParameter("withDate"));
         shiftToBeRep.setAT(request.getParameter("withAT"));
-        System.out.println("shift set at: " + shiftToBeRep.getAT());
-        ShiftDB.updateShift(request.getParameter("rpAT"), request.getParameter("rDateshift"), request.getParameter("rShiftTime"), shiftToBeRep);
+        System.out.println("replace date: " + request.getParameter("rpDate"));
+        ShiftDB.updateShift(request.getParameter("rpAT"), request.getParameter("rpDate"), request.getParameter("rpShift"), shiftToBeRep);
         shiftToBeRep = ShiftDB.doctorInShift(request.getParameter("withAT"), request.getParameter("withDate"), request.getParameter("withShift"));
 
         response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");

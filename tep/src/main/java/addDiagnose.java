@@ -103,20 +103,9 @@ public class addDiagnose extends HttpServlet {
             PatientDB.insertExaminations(exam);
         }
 
-
-//        if (flag == true) {
-//            Patient patient = PatientDB.getPatientWithAmka(amka);
-//            PatientDB.setDone(patient, "no");
-//            PatientDB.insertExaminations(exam);
-//        } else {
-//            Patient patient = PatientDB.getPatientWithAmka(amka);
-//            PatientDB.setDone(patient, "yes");
-//        }
-
         response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
         response.setStatus(200);
         String res = new Gson().toJson(exam);
-        System.out.println(PatientDB.getPatientWithAmka(Integer.parseInt(request.getParameter("amka"))));
         response.getWriter().write(res);
         response.getWriter().flush();
         response.getWriter().close();

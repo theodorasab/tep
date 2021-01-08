@@ -67,8 +67,8 @@ public class PatientDB {
             StringBuilder insQuery = new StringBuilder();
 
             insQuery.append("SELECT * FROM examinations")
-                    .append(" WHERE ")
-                    .append(" exam_order IS NOT NULL").append(";");
+                    .append(" WHERE diagnose=''")
+                    .append(" AND exam_order IS NOT NULL").append(";");
 
             stmt.execute(insQuery.toString());
 

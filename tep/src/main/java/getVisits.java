@@ -9,7 +9,6 @@ import TEPDB.Patient;
 import TEPDB.TEPDB;
 import TEPDB.UserTepDB;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -64,7 +63,6 @@ public class getVisits extends HttpServlet {
 
             ResultSet res = stmt.getResultSet();
 
-            JsonArray jArray = new JsonArray();
             while (res.next()) {
                 Examinations exam = new Examinations();
                 Patient patient = new Patient();
@@ -93,9 +91,7 @@ public class getVisits extends HttpServlet {
                 visits.put("exams", examsv);
                 response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
                 response.setStatus(200);
-
                 String res1 = new Gson().toJson(visits);
-//        System.out.println(res);
                 response.getWriter().write(res1);
                 response.getWriter().flush();
                 response.getWriter().close();

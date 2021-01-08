@@ -42,7 +42,6 @@ public class getExam extends HttpServlet {
         response.addHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=UTF-8");
         response.setStatus(200);
         String res = new Gson().toJson(exam);
-        System.out.println(PatientDB.getPatientWithAmka(Integer.parseInt(request.getParameter("amka"))));
         response.getWriter().write(res);
         response.getWriter().flush();
         response.getWriter().close();
