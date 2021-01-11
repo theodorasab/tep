@@ -5,16 +5,23 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    
+    <head>
+                <link rel="stylesheet" href="css/questions.css">
+
+    </head>
     <body>
        <div class="questions-container">
+           <div class="SQL"><h2>Enter SQL code.</h2></div>
+
+            <button type="submit" id="viewvisits">Visits</button>
+            <button type="submit" id="viewcovid">COVID-19</button>
+            <button type="submit" id="viewpersonshift">Shift</button><br>
+            <button type="submit" id="viewstatsbyday">Statistics By Day</button>
+            <button type="submit" id="viewstatsbymonth">Statistics By Month</button><br><br><br>
                 <input type="text" id="question" name="question"><br>
-                <button type="submit" id="viewvisits">Visits</button>
-                <button type="submit" id="viewstatsbyday">Statistics By Day</button>
-                 <button type="submit" id="viewstatsbymonth">Statistics By Month</button>
-                 <button type="submit" id="viewcovid">COVID-19</button> 
-                <button type="submit" id="viewpersonshift">Shift</button> 
-                <button type="submit" id="submitquestion">Question</button>
+                <button type="submit" id="submitquestion">Execute</button>
+                  <button type="submit" id="submitquestionselect">Select Question</button>
+                    <button type="submit" id="submitquestioninsert"> Insert/Update Question</button>
                 <div id="display_sql"></div>
         </div>
     </body>

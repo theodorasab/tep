@@ -107,6 +107,7 @@ function addPatient() {
             $('#typeph').css('display', 'none');
             $('#doseph').css('display', 'none');
             $('#illnessph').css('display', 'none');
+            $('#update').css('display', 'none');
 
         });
 
@@ -206,6 +207,7 @@ function addPatient() {
                 $('#typeph').css('display', 'none');
                 $('#doseph').css('display', 'none');
                 $('#illnessph').css('display', 'none');
+                $('#update').css('display', 'none');
 
             });
 

@@ -1,0 +1,41 @@
+body {
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    background-size: cover;
+}
+table, th, td {
+    border-bottom: 1px solid grey;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    background-color: #3399ff;
+    color: white;
+    align-self: center;
+    padding: 10px 17px;
+    margin: 8px 0;
+    margin-top: 3%;
+    border: none;
+    cursor: pointer;
+    width: 30%;
+}
+
+input{
+    text-align: center;
+    width: 60%;
+    padding: 20px 40px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 0.5px solid #ccc;
+    box-sizing: border-box;
+}
+.searchamkadiv {
+    text-align: center;
+    background-color: rgba(0,0,0,0.4);
+    margin: auto;
+    margin-top: 5%;
+    width: 30%;
+    height: auto;
+    border-radius: 15px 15px 15px 15px;
+}

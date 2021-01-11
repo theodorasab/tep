@@ -9,6 +9,11 @@
                 background-image: url(css/Medical.png);
                 background-size: cover;
                         }*/
+            table, th, td {
+                border-bottom: 1px solid grey;
+                margin-left: auto;
+                margin-right: auto;
+            }
             form {border: 3px solid #f1f1f1;}
 
             input[type=text]{
@@ -66,7 +71,7 @@
             <input type="text" id="insurance" name="insurance"><br><br>
             <label for="chDisease" id="chDiseaselabel"><b>Chronic Diseases</b></label><br>
             <input type="text" id="chDisease" name="chDisease"><br>
-            <p id="symptomslabel">Symptoms</p>
+            <p id="symptomslabel"><b>Symptoms</b></p>
             <select id="symptoms" name="Symptoms">
                 <option  value="1">Accident</option>
                 <option  value="2">Stitches</option>
@@ -80,29 +85,28 @@
                 <option   value="10">Other pathological issue</option>
                 <option  value="11">Bone pain</option>
                 <option  value="12">Other orthopedic issues</option>
-            </select><br>
+            </select><br><br>
             <label for="moresymptoms" id="moresymptomslabel"><b>More about the symptoms</b></label><br>
             <input type="text" id="moresymptoms" name="moresymptoms"><br>
             <label for="doctor" id="doctorlabel"><b>Doctor</b></label><br>
             <input type="text" id="doctor" name="doctor" readonly><br>
-            <div id="message"></div>
             <div id="display_history"></div>
 
             <label for="diagnose" id="diagnoselabel"><b>Diagnose</b></label><br>
-            <input type="text" id="diagnose" name="diagnose" ><br>
+            <input type="text" id="diagnose" name="diagnose" ><br><br>
             <label for="examination" id="examinationslabel"><b>Examinations</b></label><br>
             <input type="text" id="examinations" name="examinations" ><br>
             <label for="report" id="reportlabel"><b>Report</b></label><br>
             <input type="text" id="report" name="report" ><br>
-            <label style="width:10%; height: 20%" for="prescription" id="prescriptionlabel"><b>Prescription</b></label><br>
-            <label style="width:10%; height: 20%" for="namephlabel" id="namephlabel"><b>Name</b></label>
-            <label style="width:10%; height: 20%" for="typephlabel" id="typephlabel"><b>Type</b></label>
-            <label style="width:10%; height: 20%" for="dosephlabel" id="dosephlabel"><b>Dose</b></label>
-            <label style="width:10%; height: 20%" for="illnessphlabel" id="illnessphlabel"><b>Illness</b></label><br>
-            <input style="width:10%; height: 20%" type="text" id="nameph" name="nameph" >
-            <input  style="width:10%; height: 20%" type="text" id="typeph" name="typeph" >
-            <input  style="width:10%; height: 20%" type="text" id="doseph" name="doseph" >
-            <input  style="width:10%; height: 20%" type="text" id="illnessph" name="illnessph" ><br>
+            <label style="width:10%; height: 20%" for="prescription" id="prescriptionlabel"><b><u>Prescription</u></b></label><br>
+            <label style="margin-right: 50px; margin-left: 30px" for="namephlabel" id="namephlabel"><b>Name</b></label>
+            <label style="margin-right: 40px; margin-left: 40px" for="typephlabel" id="typephlabel"><b>Type</b></label>
+            <label style="margin-right: 10px; margin-left: 40px" for="dosephlabel" id="dosephlabel"><b>Dose</b></label>
+            <label style="margin-right: 30px; margin-left: 70px" for="illnessphlabel" id="illnessphlabel"><b>Illness</b></label><br>
+            <input style="width:15%; height: 20%; text-align: left; padding: 20px" type="text" id="nameph" name="nameph" >
+            <input style="width:15%; height: 20%; text-align: left; padding: 20px" type="text" id="typeph" name="typeph" >
+            <input style="width:15%; height: 20%; text-align: left; padding: 20px" type="text" id="doseph" name="doseph" >
+            <input style="width:15%; height: 20%; text-align: left; padding: 20px" type="text" id="illnessph" name="illnessph" ><br><br>
             <label for="therapy" id="therapylabel"><b>Therapy</b></label><br>
             <input type="text" id="therapy" name="therapy" ><br>
             <div id="message"></div>
@@ -110,6 +114,7 @@
             <button type="submit" id="submitexam">Submit Exam</button>
             <button type="submit" id="submitpatient">Submit</button>
             <button type="submit" id="update">Update Info</button>
+
         </div>
 
     </body>

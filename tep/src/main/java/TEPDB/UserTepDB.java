@@ -25,7 +25,7 @@ public class UserTepDB {
 //        ShiftDB.createShift();
 //        PatientDB.createDrugTable();
 //        PatientDB.createPatientTable();
-        PatientDB.createExaminationTable();
+//        PatientDB.createExaminationTable();
         //        createUserTable();
 //        insertUser();
     }

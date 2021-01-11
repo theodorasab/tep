@@ -37,7 +37,7 @@ function getShift() {
         for (i = 0; i < res.length; i++) {
             shift += "<tr>"
             if (user == "employee") {
-                shift += "<td>" + res[i].amka + "</td>"
+                shift += "<td>" + res[i].AT + "</td>"
 
             }
             shift += "<td>" + res[i].full_name + "</td>" +

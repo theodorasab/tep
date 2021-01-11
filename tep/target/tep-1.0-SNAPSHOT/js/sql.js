@@ -91,11 +91,11 @@ function getQuestion() {
             $("#display_sql").load('statistics.html', function () {
                 google.charts.load('current', {'packages': ['bar']});
                 google.charts.setOnLoadCallback(drawChart);
-                var shift = res.map.shift;
-                var exams = res.map.exams;
-                var exam_order = res.map.exam_order;
-                var diagnose = res.map.diagnose;
-                var drugs = res.map.drugs;
+                var shift = parseInt(res.map.shift);
+                var exams = parseInt(res.map.exams);
+                var exam_order = parseInt(res.map.exam_order);
+                var diagnose = parseInt(res.map.diagnose);
+                var drugs = parseInt(res.map.drugs);
                 function drawChart() {
                     var data = google.visualization.arrayToDataTable([
                         ['Day', 'Shifts', 'Visits', 'Examinations', 'Diagnose', 'Drugs'],
@@ -123,11 +123,11 @@ function getQuestion() {
             $("#display_sql").load('statistics.html', function () {
                 google.charts.load('current', {'packages': ['bar']});
                 google.charts.setOnLoadCallback(drawChart);
-                var shift = res.map.shift;
-                var exams = res.map.exams;
-                var exam_order = res.map.exam_order;
-                var diagnose = res.map.diagnose;
-                var drugs = res.map.drugs;
+                var shift = parseInt(res.map.shift);
+                var exams = parseInt(res.map.exams);
+                var exam_order = parseInt(res.map.exam_order);
+                var diagnose = parseInt(res.map.diagnose);
+                var drugs = parseInt(res.map.drugs);
                 function drawChart() {
                     var data = google.visualization.arrayToDataTable([
                         ['Day', 'Shifts', 'Visits', 'Examinations', 'Diagnose', 'Drugs'],
@@ -149,3 +149,41 @@ function getQuestion() {
     }
 }
 
+
+function getSelectQuestion() {
+    var data = new FormData();
+    data.append('select', $("#question").val());
+    ajaxRequest('GET', 'http://localhost:8080/tep/getSelect', data, function (o) {
+        var rs = JSON.parse(o.responseText);
+        console.log(rs);
+        res = rs.myArrayList;
+        var key = Object.keys(res[0].map);
+        var table = "<table><tr>";
+        for (j = 0; j < key.length; j++) {
+
+            table += "<th>" + Object.keys(res[0].map)[j] + "</th>";
+        }
+        table += "</tr>"
+        for (i = 0; i < res.length; i++) {
+            table += "<tr>"
+            for (j = 0; j < key.length; j++) {
+                table += "<td>" + Object.values(res[i].map)[j] + "</td>"
+            }
+            table += "</tr>"
+        }
+        table += "</table>";
+        $("#display_sql").html(table);
+    });
+}
+
+
+
+function getInsertQuestion() {
+    var data = new FormData();
+    data.append('insert', $("#question").val());
+    console.log("sunarthsh")
+    ajaxRequest('GET', 'http://localhost:8080/tep/getInsert', data, function (o) {
+        console.log("egine")
+        $("#display_sql").html("Successfully updated/inserted");
+    });
+}

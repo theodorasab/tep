@@ -44,9 +44,9 @@ public class addDiagnose extends HttpServlet {
         boolean flag = true;
         Examinations exam = new Examinations();
         int amka = Integer.parseInt(request.getParameter("amka"));
-        Random rand = new Random();
-        exam.setNum(rand.nextInt(3000));
         exam.setAMKA(amka);
+        Random rand = new Random();
+        exam.setNum(rand.nextInt(7000));
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         String strDate = formatter.format(date);

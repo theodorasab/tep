@@ -173,5 +173,8 @@ $(document).on('DOMNodeInserted', function (e) {
         $('#viewpersonshift').on('click', shift);
         $('#viewstatsbymonth').on('click', statsbymonth);
         $('#submitquestion').on('click', getQuestion);
+        $('#submitquestionselect').on('click', getSelectQuestion);
+        $('#submitquestioninsert').on('click', getInsertQuestion);
+
     }
 });
